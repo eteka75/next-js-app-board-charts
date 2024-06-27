@@ -8,8 +8,6 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
-import NotFound from '../dashboard/invoices/[id]/ot-found';
-import { notFound } from 'next/navigation';
 
 export async function fetchRevenue() {
   try {

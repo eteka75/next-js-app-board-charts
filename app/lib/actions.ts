@@ -33,7 +33,7 @@ const FormSchema = z.object({
   
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(prevState: State, formData: FormData) {
+export async function createInvoice(prevState: State | undefined, formData: FormData) {
 
     const validatedFields = CreateInvoice.safeParse({
         customerId: formData.get('customerId'),
@@ -69,16 +69,18 @@ export async function createInvoice(prevState: State, formData: FormData) {
 }
 
 
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({  date: true });
 
-export async function updateInvoice(id: string, formData: FormData) {
+export async function updateInvoice(prevState: State | undefined, formData: FormData) {
 
     const validatedFields = UpdateInvoice.safeParse({
+        id: formData.get('id'),
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
       });
-     
+     console.log(prevState);
       if (!validatedFields.success) {
         return {
           errors: validatedFields.error.flatten().fieldErrors,
@@ -86,7 +88,7 @@ export async function updateInvoice(id: string, formData: FormData) {
         };
       }
      
-    const { customerId, amount, status } = validatedFields.data;
+    const { id, customerId, amount, status } = validatedFields.data;
     const amountInCents = amount * 100;
  
   try {
