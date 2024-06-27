@@ -24,9 +24,9 @@ export default function LoginForm() {
     authenticate,
     undefined,
   );
-  
+  const backUrl =  process.env.NEXT_PUBLIC_BASE_URL || '/';
   const OAuthSignIn=(provider:string) => {
-    signIn(provider,{callbackUrl:'/'});
+    signIn(provider,{callbackUrl:backUrl});
   }
 
   return (
