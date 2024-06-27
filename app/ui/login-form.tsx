@@ -12,7 +12,11 @@ import { Button } from './button';
 import {authenticate, signInWithGitHub, signInWithGoogle} from "@/app/lib/actions"
 import { useActionState } from 'react';
 import { signIn } from "next-auth/react";
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Login',
+};
 
 export default function LoginForm() {
 
