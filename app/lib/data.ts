@@ -8,20 +8,48 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import NotFound from '../dashboard/invoices/[id]/ot-found';
+import { notFound } from 'next/navigation';
 
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Fetching revenue data...');
+    //await new Promise((resolve) => setTimeout(resolve, 5000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    // console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
+}
+export async function fetchNbClients() {
+  try {
+
+    const data = await sql<Revenue>`SELECT COUNT(*) FROM customers`;
+
+    // console.log('Data fetch completed after 3 seconds.');
+
+    return data.rows.length;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
+}
+export async function fetchNbInvoices() {
+  try {
+
+    const data = await sql<Revenue>`SELECT COUNT(*) FROM invoices`;
+
+    // console.log('Data fetch completed after 3 seconds.');
+
+    return data.rows.length;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -30,6 +58,8 @@ export async function fetchRevenue() {
 
 export async function fetchLatestInvoices() {
   try {
+    //await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
@@ -141,7 +171,9 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
+  //noStore();
   try {
+    
     const data = await sql<InvoiceForm>`
       SELECT
         invoices.id,
@@ -157,7 +189,7 @@ export async function fetchInvoiceById(id: string) {
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
-
+   
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
@@ -172,7 +204,7 @@ export async function fetchCustomers() {
         id,
         name
       FROM customers
-      ORDER BY name ASC
+      ORDER BY name ASC 
     `;
 
     const customers = data.rows;
