@@ -10,7 +10,7 @@ const UserConnected = () => {
 
   useEffect(() => {
     if (session) {
-      dispatch({ type: 'SET_USER', payload: session.user });
+      dispatch({ type: 'SET_USER', payload: session.user as User });
     }
   }, [session, dispatch]);
 
@@ -19,8 +19,8 @@ const UserConnected = () => {
   }
 
   return (
-    <div className="text-xs py-2 px-4">
-      Bonjour {state.user?.name}
+    <div className="text-xs py-2 px-4 absolute  bg-white pe-12 top-10 min-w-40 right-0">
+      Bonjour <b>{state.user?.name}</b>
     </div>
   );
 }
