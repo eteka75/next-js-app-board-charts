@@ -2,6 +2,7 @@ import "@/app/ui/global.css";
 
 import { Metadata } from 'next';
 import { SessionProvider } from "next-auth/react";
+import { UserProvider } from "@/app/context/UserContext";
  
 export const metadata: Metadata = {
   title: {
@@ -20,8 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider>
-          {children}
+      <SessionProvider>
+          <UserProvider>{children}</UserProvider>
         </SessionProvider>
       </body>
     </html>
