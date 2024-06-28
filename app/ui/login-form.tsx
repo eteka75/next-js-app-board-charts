@@ -9,7 +9,7 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { FaGoogle } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import { Button } from './button';
-import {authenticate, signInWithGitHub, signInWithGoogle} from "@/app/lib/actions"
+import {authenticate} from "@/app/lib/actions"
 import { useActionState } from 'react';
 import { signIn } from "next-auth/react";
 import { Metadata } from 'next';
@@ -26,7 +26,7 @@ export default function LoginForm() {
   );
   const backUrl =  process.env.NEXT_PUBLIC_BASE_URL || '/';
   const OAuthSignIn=(provider:string) => {
-    signIn(provider,{callbackUrl:backUrl});
+    signIn(provider);
   }
 
   return (

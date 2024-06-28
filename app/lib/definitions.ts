@@ -90,3 +90,6 @@ export type InvoiceForm = {
 export interface UpdateInvoiceProps {
   id: string;
 }
+export interface UserContextType {
+  user: User | null;
+}

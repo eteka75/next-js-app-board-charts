@@ -13,7 +13,7 @@ export default async function CustomersTable({
 }) {
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-2xl md:text-3xl`}>
+      <h1 className={`${lusitana.className} mb-8 text-2xl md:text-3const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;xl`}>
         Customers
       </h1>
       <Search placeholder="Search customers..." />
