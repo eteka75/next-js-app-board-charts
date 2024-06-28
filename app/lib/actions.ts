@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { revalidateAndRedirect } from './utils';
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
 
@@ -142,4 +142,7 @@ export async function signInWithGoogle(e: React.FormEvent<HTMLFormElement>) {
 export async function signInWithGitHub(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
   await signIn("github");
+}
+export async function userSignOut() {
+  await signOut();
 }
